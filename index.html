@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jacob Dunn — Data Analyst</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f9f8f6;
+      --surface: #ffffff;
+      --text: #1a1a18;
+      --muted: #6b6b66;
+      --accent: #2a6049;
+      --accent-light: #e8f0ec;
+      --border: #e4e2dd;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 4rem;
+      background: rgba(249,248,246,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.875rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 8rem 4rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .hero-content { max-width: 680px; }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      padding: 0.35rem 0.85rem;
+      background: var(--accent-light);
+      border-radius: 2px;
+    }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 em { font-style: italic; color: var(--accent); }
+
+    .hero-bio {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+      line-height: 1.75;
+    }
+
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      padding: 0.8rem 1.75rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      border-radius: 3px;
+      transition: all 0.2s;
+    }
+
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: #1e4a37; }
+    .btn-outline { border: 1px solid var(--border); color: var(--text); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 6rem 4rem;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      max-width: 48px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .about-text h2 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
+
+    .about-text p { color: var(--muted); margin-bottom: 1rem; line-height: 1.8; }
+
+    .about-stats { display: flex; flex-direction: column; gap: 2rem; padding-top: 0.5rem; }
+
+    .stat-item { border-left: 2px solid var(--accent); padding-left: 1.5rem; }
+
+    .stat-number {
+      font-family: var(--serif);
+      font-size: 2rem;
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-label { font-size: 0.85rem; color: var(--muted); }
+
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .skill-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+
+    .skill-icon { font-size: 1.5rem; margin-bottom: 1rem; }
+
+    .skill-card h3 { font-family: var(--serif); font-size: 1.25rem; margin-bottom: 0.5rem; }
+
+    .skill-card p { font-size: 0.875rem; color: var(--muted); line-height: 1.7; }
+
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+
+    .tag {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      background: var(--accent-light);
+      color: var(--accent);
+      border-radius: 2px;
+      font-weight: 500;
+    }
+
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .project-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); transform: translateY(-4px); }
+
+    .project-thumb {
+      height: 160px;
+      background: var(--accent-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+    }
+
+    .project-body { padding: 1.75rem; }
+
+    .project-body h3 { font-family: var(--serif); font-size: 1.3rem; margin-bottom: 0.5rem; }
+
+    .project-body p { font-size: 0.875rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.25rem; }
+
+    .project-link {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      transition: gap 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .project-link:hover { gap: 0.6rem; }
+
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .contact-text h2 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    .contact-text p { color: var(--muted); line-height: 1.8; margin-bottom: 2rem; }
+
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .contact-link:hover { color: var(--accent); }
+
+    .contact-link-icon {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+      .hero { padding: 7rem 1.5rem 3rem; }
+      section { padding: 4rem 1.5rem; }
+      .about-grid, .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="nav-logo">Jacob Dunn</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-content">
+      <span class="hero-eyebrow">Data Analyst & Aspiring Engineer</span>
+      <h1>Finding the <em>story</em> inside the data.</h1>
+      <p class="hero-bio">
+        I'm Jacob Dunn — I ask the right questions, chase the interesting problems, and translate raw data into clear, compelling narratives. Curious by nature, rigorous by practice.
+      </p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">View My Work</a>
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <section id="about">
+    <div class="section-label">About Me</div>
+    <div class="about-grid fade-in">
+      <div class="about-text">
+        <h2>Analyst. Problem Solver. Storyteller.</h2>
+        <p>My journey into data started with survey design and statistical analysis in Qualtrics — learning early that the quality of your questions determines the quality of your insights. That foundation shaped how I approach every dataset.</p>
+        <p>Since then I've expanded into business intelligence with Power BI, relational databases with SQL, and visualization with Tableau. I'm equally comfortable pulling and cleaning data as I am presenting a dashboard to stakeholders.</p>
+        <p>I'm currently growing toward data engineering — deeper pipelines, stronger infrastructure, more automation. Always learning, always building.</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-item">
+          <div class="stat-number">Power BI</div>
+          <div class="stat-label">Primary BI & Dashboard Tool</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">SQL</div>
+          <div class="stat-label">Data Querying & Analysis</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">Qualtrics</div>
+          <div class="stat-label">Where It All Began</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section id="skills">
+    <div class="section-label">Skills</div>
+    <div class="skills-grid">
+      <div class="skill-card fade-in">
+        <div class="skill-icon">📊</div>
+        <h3>Business Intelligence</h3>
+        <p>Building interactive dashboards and reports that surface the metrics that matter most to decision-makers.</p>
+        <div class="skill-tags">
+          <span class="tag">Power BI</span><span class="tag">Tableau</span><span class="tag">DAX</span>
+        </div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-icon">🗄️</div>
+        <h3>Data & Databases</h3>
+        <p>Querying, transforming, and wrangling structured data to uncover patterns and support analysis.</p>
+        <div class="skill-tags">
+          <span class="tag">SQL</span><span class="tag">Data Cleaning</span><span class="tag">ETL</span>
+        </div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-icon">📋</div>
+        <h3>Survey & Statistical Analysis</h3>
+        <p>Designing research instruments and applying statistical methods to draw reliable conclusions from data.</p>
+        <div class="skill-tags">
+          <span class="tag">Qualtrics</span><span class="tag">Statistics</span><span class="tag">Research Design</span>
+        </div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-icon">🔍</div>
+        <h3>Analytical Thinking</h3>
+        <p>Framing the right questions, finding the signal in the noise, and communicating findings with clarity.</p>
+        <div class="skill-tags">
+          <span class="tag">Storytelling</span><span class="tag">Problem Solving</span><span class="tag">Stakeholder Comms</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section id="projects">
+    <div class="section-label">Projects</div>
+    <div class="projects-grid">
+      <div class="project-card fade-in">
+        <div class="project-thumb">📈</div>
+        <div class="project-body">
+          <h3>Sales Performance Dashboard</h3>
+          <p>An end-to-end Power BI dashboard tracking KPIs across regions and product lines, with dynamic filtering and trend analysis.</p>
+          <div class="skill-tags" style="margin-bottom:1.25rem;">
+            <span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">SQL</span>
+          </div>
+          <a href="#" class="project-link">View Project →</a>
+        </div>
+      </div>
+      <div class="project-card fade-in">
+        <div class="project-thumb">📋</div>
+        <div class="project-body">
+          <h3>Survey Data Analysis</h3>
+          <p>Designed and analyzed a multi-segment Qualtrics survey, delivering statistically significant insights with clear visualizations.</p>
+          <div class="skill-tags" style="margin-bottom:1.25rem;">
+            <span class="tag">Qualtrics</span><span class="tag">Statistics</span><span class="tag">Tableau</span>
+          </div>
+          <a href="#" class="project-link">View Project →</a>
+        </div>
+      </div>
+      <div class="project-card fade-in">
+        <div class="project-thumb">🗄️</div>
+        <div class="project-body">
+          <h3>SQL Data Pipeline</h3>
+          <p>Built a series of queries and views to automate a reporting workflow, reducing manual data prep time significantly.</p>
+          <div class="skill-tags" style="margin-bottom:1.25rem;">
+            <span class="tag">SQL</span><span class="tag">ETL</span><span class="tag">Automation</span>
+          </div>
+          <a href="#" class="project-link">View Project →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section id="contact">
+    <div class="section-label">Contact</div>
+    <div class="contact-inner fade-in">
+      <div class="contact-text">
+        <h2>Let's work together.</h2>
+        <p>Whether you have a project in mind, a data problem to solve, or just want to connect — I'd love to hear from you.</p>
+        <a href="mailto:jeppyd@gmail.com" class="btn btn-primary">Say Hello</a>
+      </div>
+      <div class="contact-links">
+        <a href="mailto:jeppyd@gmail.com" class="contact-link">
+          <span class="contact-link-icon">✉</span>
+          jeppyd@gmail.com
+        </a>
+        <a href="https://www.linkedin.com/in/jacobpdunn/" target="_blank" class="contact-link">
+          <span class="contact-link-icon">in</span>
+          linkedin.com/in/jacobpdunn
+        </a>
+        <a href="https://github.com/jeppyd" target="_blank" class="contact-link">
+          <span class="contact-link-icon">⌥</span>
+          github.com/jeppyd
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Jacob Dunn</span>
+    <span>Data Analyst & Aspiring Engineer</span>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(el => {
+        if (el.isIntersecting) el.target.classList.add('visible');
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
